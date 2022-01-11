@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			people: []
+			people: [],
+			favoritos: []
 		},
 
 		actions: {
@@ -37,6 +38,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 							{
 								let personaje = {
 									uid: personajes[i].uid,
+									name: personajes[i].name,
+									hair_color:personajes[i].hair_color,
+									eye_color: personajes[i].eye_color,
+								}
+								var requestOptions = {
+									method: 'GET',
+									redirect: 'follow'
+								};
+								
+								
+								await fetch(personajes[i].url, requestOptions)
+									.then(response => response.json())
+									.then(result => {
+										personaje.hair_color = result.result.properties.hair_color;
+										personaje.eye_color = result.result.properties.eye_color;
+										personaje.gender = result.result.properties.gender;
+										console.log("Armando el personaje",personaje)
+										listaPersonajes.push(personaje)
+										// setStore({ people: [...people,personaje] })
+									})
+									.catch(error => console.log('error', error));
+								}
+								console.log("LISTA",listaPersonajes)
+								setStore({people:listaPersonajes});
+							})
+					.catch(error => console.log('error', error));
+			},
+			loadplanets: async() => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				  };
+				  
+				  fetch("https://www.swapi.tech/api/planets", requestOptions)
+					.then(response => response.json())
+					.then(async result => 
+						{
+							let planets = result.results;
+							let listaPlanets = [];
+							for (let i=0;i<planets.length;i++)
+							{
+								let planets = {
+									uid: planets[i].uid,
 									name: personajes[i].name,
 									hair_color:"",
 									eye_color: ""
@@ -63,6 +107,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 								setStore({people:listaPersonajes});
 							})
 					.catch(error => console.log('error', error));
+			},
+			agregarFavoritos: (name)=>{
+				setStore({favoritos:[...favoritos, name]})
+			},
+			eliminarFavoritos: (name)=>{
+				const store = getStore()
+				const favoritoseliminados = store.favoritos.filter((favorito)=>{
+					return name!==favorito
+				})
+				setStore({favoritos:favoritoseliminados})
 			},
 			changeColor: (index, color) => {
 				//get the store

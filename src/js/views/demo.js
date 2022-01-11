@@ -11,7 +11,7 @@ export const Demo = () => {
 	//ACA PUEDO ESCRIBIR CODIGO DE JS
 	// let num = 0;
 	// console.log("mi numero es ", num)
-
+console.log(store)
 	return (
 	//SIEMPRE VA A SER HTML (Boostrap) + Algo de JS
 		<div className="container ">
