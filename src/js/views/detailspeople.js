@@ -6,9 +6,12 @@ import { Context } from "../store/appContext";
 export const Detailspeople = props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
+	useEffect(() => {
+		actions.detailspeople(params.id)
+	},[]);
 	return (
 		<div className="jumbotron">
-			<h1 className="display-4">This will show the demo element: {params.name}</h1>
+			<h1 className="display-4">Dia de cumple: {store.detailspeople.birth_year}{params.id}</h1>
 
 			<hr className="my-4" />
 

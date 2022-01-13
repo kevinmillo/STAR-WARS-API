@@ -14,7 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			people: [],
-			favoritos: []
+			favoritos: [],
+			detailspeople: {}
 		},
 
 		actions: {
@@ -109,7 +110,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log('error', error));
 			},
 			agregarFavoritos: (name)=>{
-				setStore({favoritos:[...favoritos, name]})
+				const store = getStore()
+				setStore({favoritos:[...store.favoritos, name]})
 			},
 			eliminarFavoritos: (name)=>{
 				const store = getStore()
@@ -131,9 +133,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+			detailspeople: (id)=>{
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				};
+				
+				
+				fetch("https://www.swapi.tech/api/people/"+id, requestOptions)
+					.then(response => response.json())
+					.then(result => {
+						console.log(result)
+						setStore({ detailspeople: result.result.properties })
+					})
+					.catch(error => console.log('error', error));
+				}
+			},
 		}
 	};
-};
 
 export default getState;

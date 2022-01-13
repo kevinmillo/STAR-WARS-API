@@ -52,13 +52,13 @@ export const Cardpeople = (props) => {
         <p className="card-text">Hair Color: {props.hair_color} </p>
         <p className="card-text">Eye Color: {props.eye_color} </p>
         <div className="d-flex justify-content-between">
-          <a href={`/detailspeople/${props.name}`} className="btn btn-primary">
+          <a href={`/detailspeople/${props.id}`} className="btn btn-primary">
             Go somewhere
           </a>
-          <button className="far fa-heart" style={{
+          <i className="far fa-heart" style={{
 								fontWeight: corazon ? "bold" : "",
 								color: corazon ? "rgb(185, 19, 19)" : "Black"
-							}} onClick={() => hacerclick()}>X</button>
+							}} onClick={() => hacerclick()}></i>
         </div>
       </div>
     </div>
