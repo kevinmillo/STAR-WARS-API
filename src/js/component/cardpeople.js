@@ -53,7 +53,7 @@ export const Cardpeople = (props) => {
         <p className="card-text">Eye Color: {props.eye_color} </p>
         <div className="d-flex justify-content-between">
           <a href={`/detailspeople/${props.id}`} className="btn btn-primary">
-            Go somewhere
+            Ver detalles
           </a>
           <i className="far fa-heart" style={{
 								fontWeight: corazon ? "bold" : "",
